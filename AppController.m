@@ -12,8 +12,7 @@
 #import "PTHotKey.h"
 #import "PTHotKeyCenter.h"
 #import "SRRecorderCell.h"
-#import "UKLoginItemRegistry.h"
-
+#import "CMMULoginItem.h"
 
 #define _DISPLENGTH 40
 
@@ -238,15 +237,10 @@ typedef unsigned NSWindowCollectionBehavior;
 }
 
 -(IBAction) showPreferencePanel:(id)sender
-{                                    
-	int checkLoginRegistry = [UKLoginItemRegistry indexForLoginItemWithPath:[[NSBundle mainBundle] bundlePath]];
-	if ( checkLoginRegistry >= 1 ) {
-		[[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:YES]
-												 forKey:@"loadOnStartup"];
-	} else {
-		[[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:NO]
-												 forKey:@"loadOnStartup"];
-	}
+{
+    BOOL loadOnStartup = [CMMULoginItem willStartAtLogin:[[NSBundle mainBundle] bundleURL]];
+    [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:loadOnStartup]
+                                             forKey:@"loadOnStartup"];
 	
 	if ([prefsPanel respondsToSelector:@selector(setCollectionBehavior:)])
 		[prefsPanel setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces];
@@ -256,11 +250,8 @@ typedef unsigned NSWindowCollectionBehavior;
 }
 
 -(IBAction)toggleLoadOnStartup:(id)sender {
-	if ( [[NSUserDefaults standardUserDefaults] boolForKey:@"loadOnStartup"] ) {
-		[UKLoginItemRegistry addLoginItemWithPath:[[NSBundle mainBundle] bundlePath] hideIt:NO];
-	} else {
-		[UKLoginItemRegistry removeLoginItemWithPath:[[NSBundle mainBundle] bundlePath]];
-	}
+    BOOL loadOnStartup = [[NSUserDefaults standardUserDefaults] boolForKey:@"loadOnStartup"];
+    [CMMULoginItem setStartAtLogin:[[NSBundle mainBundle] bundleURL] enabled:loadOnStartup];
 }
 
 

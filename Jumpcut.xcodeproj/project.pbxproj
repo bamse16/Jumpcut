@@ -7,16 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		29204279166FED4300272BE1 /* CMMULoginItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 29204277166FED4300272BE1 /* CMMULoginItem.h */; };
+		2920427A166FED4300272BE1 /* CMMULoginItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 29204278166FED4300272BE1 /* CMMULoginItem.m */; };
 		8D11072A0486CEB800E47090 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 29B97318FDCFA39411CA2CEA /* MainMenu.nib */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		AA058DC70A10512100DB7366 /* UKPrefsPanel.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA058DC50A10512100DB7366 /* UKPrefsPanel.h */; };
 		AA058DC80A10512100DB7366 /* UKPrefsPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = AA058DC60A10512100DB7366 /* UKPrefsPanel.m */; };
-		AA0875FD0B8011B000C1F175 /* LoginItemsAE.c in Sources */ = {isa = PBXBuildFile; fileRef = AA0875FB0B8011B000C1F175 /* LoginItemsAE.c */; };
-		AA0875FE0B8011B000C1F175 /* LoginItemsAE.h in Headers */ = {isa = PBXBuildFile; fileRef = AA0875FC0B8011B000C1F175 /* LoginItemsAE.h */; };
-		AA0876030B8011EC00C1F175 /* UKLoginItemRegistry.h in Headers */ = {isa = PBXBuildFile; fileRef = AA0876010B8011EC00C1F175 /* UKLoginItemRegistry.h */; };
-		AA0876040B8011EC00C1F175 /* UKLoginItemRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0876020B8011EC00C1F175 /* UKLoginItemRegistry.m */; };
 		AA2640B90A37D2E600591C20 /* jumpcut.icns in Resources */ = {isa = PBXBuildFile; fileRef = AA2640B80A37D2E600591C20 /* jumpcut.icns */; };
 		AA6D1BDD0DAD68D800734235 /* SRValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = AA6D1BD10DAD68D800734235 /* SRValidator.h */; };
 		AA6D1BDE0DAD68D800734235 /* CTGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = AA6D1BD20DAD68D800734235 /* CTGradient.m */; };
@@ -91,6 +89,8 @@
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		29204277166FED4300272BE1 /* CMMULoginItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMMULoginItem.h; sourceTree = "<group>"; };
+		29204278166FED4300272BE1 /* CMMULoginItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMMULoginItem.m; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97319FDCFA39411CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
@@ -100,10 +100,6 @@
 		8D1107320486CEB800E47090 /* Jumpcut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Jumpcut.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA058DC50A10512100DB7366 /* UKPrefsPanel.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = UKPrefsPanel.h; sourceTree = "<group>"; };
 		AA058DC60A10512100DB7366 /* UKPrefsPanel.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = UKPrefsPanel.m; sourceTree = "<group>"; };
-		AA0875FB0B8011B000C1F175 /* LoginItemsAE.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = LoginItemsAE.c; sourceTree = "<group>"; };
-		AA0875FC0B8011B000C1F175 /* LoginItemsAE.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = LoginItemsAE.h; sourceTree = "<group>"; };
-		AA0876010B8011EC00C1F175 /* UKLoginItemRegistry.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = UKLoginItemRegistry.h; sourceTree = "<group>"; };
-		AA0876020B8011EC00C1F175 /* UKLoginItemRegistry.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = UKLoginItemRegistry.m; sourceTree = "<group>"; };
 		AA2640B80A37D2E600591C20 /* jumpcut.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = jumpcut.icns; sourceTree = "<group>"; };
 		AA6D1BD10DAD68D800734235 /* SRValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRValidator.h; sourceTree = "<group>"; };
 		AA6D1BD20DAD68D800734235 /* CTGradient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTGradient.m; sourceTree = "<group>"; };
@@ -262,10 +258,8 @@
 		AA0875E60B800F2600C1F175 /* LoginItem */ = {
 			isa = PBXGroup;
 			children = (
-				AA0876010B8011EC00C1F175 /* UKLoginItemRegistry.h */,
-				AA0876020B8011EC00C1F175 /* UKLoginItemRegistry.m */,
-				AA0875FB0B8011B000C1F175 /* LoginItemsAE.c */,
-				AA0875FC0B8011B000C1F175 /* LoginItemsAE.h */,
+				29204277166FED4300272BE1 /* CMMULoginItem.h */,
+				29204278166FED4300272BE1 /* CMMULoginItem.m */,
 			);
 			name = LoginItem;
 			sourceTree = "<group>";
@@ -346,14 +340,13 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AA0875FE0B8011B000C1F175 /* LoginItemsAE.h in Headers */,
-				AA0876030B8011EC00C1F175 /* UKLoginItemRegistry.h in Headers */,
 				AA6D1BDD0DAD68D800734235 /* SRValidator.h in Headers */,
 				AA6D1BDF0DAD68D800734235 /* SRCommon.h in Headers */,
 				AA6D1BE00DAD68D800734235 /* SRRecorderCell.h in Headers */,
 				AA6D1BE10DAD68D800734235 /* SRRecorderControl.h in Headers */,
 				AA6D1BE50DAD68D800734235 /* SRKeyCodeTransformer.h in Headers */,
 				AA6D1BE70DAD68D800734235 /* CTGradient.h in Headers */,
+				29204279166FED4300272BE1 /* CMMULoginItem.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -441,9 +434,7 @@
 				AABE493709FF21BE00A6A239 /* PTKeyCombo.m in Sources */,
 				AABE496A09FF227E00A6A239 /* JumpcutClipping.m in Sources */,
 				AABE496B09FF227E00A6A239 /* JumpcutStore.m in Sources */,
-				AA0876040B8011EC00C1F175 /* UKLoginItemRegistry.m in Sources */,
 				AA058DC80A10512100DB7366 /* UKPrefsPanel.m in Sources */,
-				AA0875FD0B8011B000C1F175 /* LoginItemsAE.c in Sources */,
 				AABE497C09FF9CD000A6A239 /* AppController.m in Sources */,
 				AA6D1BDE0DAD68D800734235 /* CTGradient.m in Sources */,
 				AA6D1BE20DAD68D800734235 /* SRRecorderControl.m in Sources */,
@@ -451,6 +442,7 @@
 				AA6D1BE40DAD68D800734235 /* SRCommon.m in Sources */,
 				AA6D1BE60DAD68D800734235 /* SRRecorderCell.m in Sources */,
 				AA6D1BE80DAD68D800734235 /* SRValidator.m in Sources */,
+				2920427A166FED4300272BE1 /* CMMULoginItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
