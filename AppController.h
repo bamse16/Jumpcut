@@ -87,7 +87,6 @@
 -(IBAction) setRememberNumPref:(id)sender;
 -(IBAction) setDisplayNumPref:(id)sender;
 -(IBAction) setBezelAlpha:(id)sender;
--(IBAction) switchMenuIcon:(id)sender;
 -(IBAction) toggleLoadOnStartup:(id)sender;
 -(IBAction) toggleMainHotKey:(id)sender;
 -(void) setHotKeyPreferenceForRecorder:(SRRecorderControl *)aRecorder;

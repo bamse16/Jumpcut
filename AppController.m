@@ -134,13 +134,7 @@ typedef unsigned NSWindowCollectionBehavior;
     statusItem = [[[NSStatusBar systemStatusBar]
             statusItemWithLength:NSVariableStatusItemLength] retain];
     [statusItem setHighlightMode:YES];
-	if ( [[NSUserDefaults standardUserDefaults] integerForKey:@"menuIcon"] == 1 ) {
-		[statusItem setTitle:[NSString stringWithFormat:@"%C",0x2704]]; 
-	} else if ( [[NSUserDefaults standardUserDefaults] integerForKey:@"menuIcon"] == 2 ) {
-		[statusItem setTitle:[NSString stringWithFormat:@"%C",0x2702]]; 
-	} else {
-		[statusItem setImage:[NSImage imageNamed:@"net.sf.jumpcut.scissors_bw16.png"]];
-    }
+    [statusItem setImage:[NSImage imageNamed:@"net.sf.jumpcut.scissors_bw16.png"]];
 	[statusItem setMenu:jcMenu];
     [statusItem setEnabled:YES];
 	
@@ -184,20 +178,6 @@ typedef unsigned NSWindowCollectionBehavior;
 	// bezel programatically, meaning that I have to go through AppController as
 	// a cutout to allow the user interface to interact w/the bezel.
 	[bezel setAlpha:[sender floatValue]];
-}
-
--(IBAction) switchMenuIcon:(id)sender
-{
-	if ([sender indexOfSelectedItem] == 1 ) {
-		[statusItem setImage:nil];
-		[statusItem setTitle:[NSString stringWithFormat:@"%C",0x2704]]; 
-	} else if ( [sender indexOfSelectedItem] == 2 ) {
-		[statusItem setImage:nil];
-		[statusItem setTitle:[NSString stringWithFormat:@"%C",0x2702]]; 
-	} else {
-		[statusItem setTitle:@""];
-		[statusItem setImage:[NSImage imageNamed:@"net.sf.jumpcut.scissors_bw16.png"]];
-    }
 }
 
 -(IBAction) setRememberNumPref:(id)sender
