@@ -1,0 +1,4 @@
+download_base_url: 'http://www.your_website.com/app_folder/'
+appcast_basefolder: '/users/user_name/desktop/app_name/'
+appcast_xml_name:  'add_to_appcast.xml'
+keychain_privkey_name: 'Sparkle Private Key'
