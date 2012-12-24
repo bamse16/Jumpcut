@@ -169,7 +169,7 @@ static NSArray              *padKeysArray        = nil;
 		UniCharCount length = 4, realLength;
         UniChar chars[4];
         
-        err = UCKeyTranslate( keyboardLayout, 
+        UCKeyTranslate( keyboardLayout, 
                               keyCode,
                               kUCKeyActionDisplay,
                               0,

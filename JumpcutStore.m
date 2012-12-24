@@ -185,6 +185,27 @@
     return returnArray;
 }
 
+-(void) moveToTop: (NSString *)fullText
+{
+	int i, count = [jcList count], textFound = 0;
+	NSMutableArray *discardedItems = [NSMutableArray array];
+	JumpcutClipping *keepClipping;
+	for (i=0; i< count; i++) {
+		JumpcutClipping *aClipping = [jcList objectAtIndex:i];
+		if(fullText == [aClipping contents]){
+			keepClipping = aClipping;
+			[discardedItems addObject:aClipping];
+			textFound = 1;
+		}
+	}
+	
+	[jcList removeObjectsInArray:discardedItems];
+	if (textFound) {
+		//insert this text at the first position
+		[jcList insertObject:keepClipping atIndex:0];
+	}
+}
+
 -(void) dealloc
 {
     // Free preferences

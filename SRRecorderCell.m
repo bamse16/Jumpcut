@@ -379,13 +379,13 @@
 		
 //	NSAffineTransform *transitionMovement = [[NSAffineTransform alloc] init];
 		NSAffineTransform *viewportMovement = [[NSAffineTransform alloc] init];
-		CTGradient *currRecordingGradient = [recordingGradient gradientWithAlphaComponent:0.3];
+		//CTGradient *currRecordingGradient = [recordingGradient gradientWithAlphaComponent:0.3]; //marius
 	// Draw gradient when in recording mode
 		if (isVaguelyRecording)
 		{
 			if (isAnimatingNow) {
 //			[transitionMovement translateXBy:(isAnimatingTowardsRecording ? -(NSWidth(cellFrame)*(1.0-xanim)) : +(NSWidth(cellFrame)*xanim)) yBy:0.0];
-				currRecordingGradient = [currRecordingGradient gradientWithAlphaComponent:alphaRecording];
+				//currRecordingGradient = [currRecordingGradient gradientWithAlphaComponent:alphaRecording]; //marius
 				if (SRAnimationAxisIsY) {
 //				[viewportMovement translateXBy:0.0 yBy:(isAnimatingTowardsRecording ? -(NSHeight(cellFrame)*(xanim)) : -(NSHeight(cellFrame)*(1.0-xanim)))];
 					[viewportMovement translateXBy:0.0 yBy:(isAnimatingTowardsRecording ? NSHeight(cellFrame)*(xanim) : NSHeight(cellFrame)*(1.0-xanim))];
@@ -413,7 +413,7 @@
 		
 //	if (isVaguelyRecording) 
 		{
-			roundedRect = [viewportMovement transformBezierPath:[NSBezierPath bezierPathWithSRCRoundRectInRect:SRAnimationOffsetRect(cellFrame,cellFrame) radius:NSHeight(cellFrame)/2.0]];
+			// roundedRect = [viewportMovement transformBezierPath:[NSBezierPath bezierPathWithSRCRoundRectInRect:SRAnimationOffsetRect(cellFrame,cellFrame) radius:NSHeight(cellFrame)/2.0]]; //marius
 			
 		// Fill background with gradient
 		//		[currRecordingGradient fillRect:cellFrame angle:90.0];
@@ -647,7 +647,7 @@
 - (BOOL)trackMouse:(NSEvent *)theEvent inRect:(NSRect)cellFrame ofView:(SRRecorderControl *)controlView untilMouseUp:(BOOL)flag
 {		
 	NSEvent *currentEvent = theEvent;
-	NSPoint mouseLocation = [controlView convertPoint:[currentEvent locationInWindow] fromView:nil];
+	//NSPoint mouseLocation = [controlView convertPoint:[currentEvent locationInWindow] fromView:nil]; //marius
 	
 	NSRect trackingRect = (isRecording ? [self _snapbackRectForFrame: cellFrame] : [self _removeButtonRectForFrame: cellFrame]);
 	NSRect leftRect = cellFrame;
@@ -656,7 +656,7 @@
 	if (!NSEqualRects(trackingRect,NSZeroRect)) leftRect.size.width -= NSWidth(trackingRect) + 4;
 		
 	do {
-        mouseLocation = [controlView convertPoint: [currentEvent locationInWindow] fromView:nil];
+        NSPoint mouseLocation = [controlView convertPoint: [currentEvent locationInWindow] fromView:nil];
 		
 		switch ([currentEvent type])
 		{
@@ -1202,6 +1202,7 @@
 		}
 		
 		[values setValue:defaultsValue forKey:[self _defaultsKeyForAutosaveName: defaultsKey]];
+		[defaultsValue release]; //marius
 	}
 }
 

@@ -234,7 +234,6 @@ typedef unsigned NSWindowCollectionBehavior;
     [CMMULoginItem setStartAtLogin:[[NSBundle mainBundle] bundleURL] enabled:loadOnStartup];
 }
 
-
 - (void)pasteFromStack
 {
 	if ( [clippingStore jcListCount] > stackPosition ) {
@@ -279,16 +278,20 @@ typedef unsigned NSWindowCollectionBehavior;
 {
     NSString *type = [jcPasteboard availableTypeFromArray:[NSArray arrayWithObject:NSStringPboardType]];
     if ( [pbCount intValue] != [jcPasteboard changeCount] ) {
+		NSLog(@"type is %@, pbCount is %d, jcCount is %d", type, [pbCount intValue], [jcPasteboard changeCount]);
         // Reload pbCount with the current changeCount
         // Probably poor coding technique, but pollPB should be the only thing messing with pbCount, so it should be okay
         [pbCount release];
         pbCount = [[NSNumber numberWithInt:[jcPasteboard changeCount]] retain];
         if ( type != nil ) {
 			NSString *contents = [jcPasteboard stringForType:type];
-			if ( contents == nil ) {
-//                NSLog(@"Contents: Empty");
+			if ( contents == nil || [contents length] == 0 ) {
+                NSLog(@"Contents: Empty");
             } else {
-				if (( [clippingStore jcListCount] == 0 || ! [contents isEqualToString:[clippingStore clippingContentsAtPosition:0]])
+				if (
+						( [clippingStore jcListCount] == 0 
+							|| ! [contents isEqualToString:[clippingStore clippingContentsAtPosition:0]]
+						 )
 					&&  ! [pbCount isEqualTo:pbBlockCount] ) {
                     [clippingStore addClipping:contents
 										ofType:type	];
@@ -402,8 +405,10 @@ typedef unsigned NSWindowCollectionBehavior;
 		[bezel setCharString:[NSString stringWithFormat:@"%d", stackPosition + 1]];
 		[bezel setText:[clippingStore clippingContentsAtPosition:stackPosition]];
 	} 
-	if ([bezel respondsToSelector:@selector(setCollectionBehavior:)])
-		[bezel setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces];	[bezel makeKeyAndOrderFront:nil];
+	if ([bezel respondsToSelector:@selector(setCollectionBehavior:)]){
+		[bezel setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces];
+    }
+    [bezel makeKeyAndOrderFront:nil];
 	isBezelDisplayed = YES;
 }
 
@@ -525,7 +530,7 @@ typedef unsigned NSWindowCollectionBehavior;
     if ( [self isValidClippingNumber:[NSNumber numberWithInt:count]] ) {
         return [clippingStore clippingContentsAtPosition:count];
     } else { // It fails -- we shouldn't be passed this, but...
-        NSLog(@"Asked for non-existant clipping count: %d");
+        NSLog(@"Asked for non-existant clipping count: %d", count);
         return @"";
     }
 }
@@ -549,9 +554,12 @@ typedef unsigned NSWindowCollectionBehavior;
     }
     pbFullText = [self clippingStringWithCount:indexInt];
     pbTypes = [NSArray arrayWithObjects:@"NSStringPboardType",NULL];
+	   
+    [clippingStore moveToTop:pbFullText];
+    stackPosition = 0;
+    [self updateMenu];
     
     [jcPasteboard declareTypes:pbTypes owner:NULL];
-	
     [jcPasteboard setString:pbFullText forType:@"NSStringPboardType"];
     [self setPBBlockCount:[NSNumber numberWithInt:[jcPasteboard changeCount]]];
     return true;
@@ -559,7 +567,7 @@ typedef unsigned NSWindowCollectionBehavior;
 
 -(void) loadEngineFromPList
 {
-    NSString *path = [[NSString stringWithString:@"~/Library/Application Support/Jumpcut/JCEngine.save"] 					stringByExpandingTildeInPath];
+    NSString *path = [@"~/Library/Application Support/Jumpcut/JCEngine.save" stringByExpandingTildeInPath];
     NSDictionary *loadDict = [[NSDictionary alloc] initWithContentsOfFile:path];
     NSEnumerator *enumerator;
     NSDictionary *aSavedClipping;
@@ -628,7 +636,7 @@ typedef unsigned NSWindowCollectionBehavior;
     int i;
     BOOL isDir;
     NSString *path;
-    path = [[NSString stringWithString:@"~/Library/Application Support/Jumpcut"] stringByExpandingTildeInPath];
+    path = [@"~/Library/Application Support/Jumpcut" stringByExpandingTildeInPath];
     if ( ![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir] || ! isDir ) {
         NSLog(@"Creating Application Support directory");
         [[NSFileManager defaultManager] createDirectoryAtPath:path
@@ -709,7 +717,7 @@ typedef unsigned NSWindowCollectionBehavior;
 {
 	if ( [[NSUserDefaults standardUserDefaults] integerForKey:@"savePreference"] >= 1 ) {
 		NSLog(@"Saving on exit");
-        [self saveEngine] ;
+        [self saveEngine];
     }
 	//Unregister our hot key (not required)
 	[[PTHotKeyCenter sharedCenter] unregisterHotKey: mainHotKey];

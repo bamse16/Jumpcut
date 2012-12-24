@@ -177,23 +177,31 @@ NSString *SRCharacterForKeyCodeAndCocoaFlags(signed short keyCode, unsigned int 
 	CFMutableStringRef resultString;
 	
     err = KLGetCurrentKeyboardLayout( &currentLayout );
-    if(err != noErr)
+    if(err != noErr){
+		CFRelease(locale);
 		return FailWithNaiveString;
+	}
 	
     err = KLGetKeyboardLayoutProperty( currentLayout, kKLKind, (const void **)&keyLayoutKind );
-    if (err != noErr)
+    if (err != noErr) {
+		CFRelease(locale);
 		return FailWithNaiveString;
+	}
 	
     if (keyLayoutKind == kKLKCHRKind) {
 		PUDNSLog(@"KCHR kind key layout");
 		err = KLGetKeyboardLayoutProperty( currentLayout, kKLKCHRData, (const void **)&KCHRData );
-		if (err != noErr)
+		if (err != noErr) {
+			CFRelease(locale);
 			return FailWithNaiveString;
+		}
     } else {
 		PUDNSLog(@"uchr kind key layout");
 		err = KLGetKeyboardLayoutProperty( currentLayout, kKLuchrData, (const void **)&uchrData );
-		if (err !=  noErr)
+		if (err !=  noErr) {
+			CFRelease(locale);
 			return FailWithNaiveString;
+		}
     }
 	
     if (keyLayoutKind == kKLKCHRKind) {
@@ -238,7 +246,7 @@ NSString *SRCharacterForKeyCodeAndCocoaFlags(signed short keyCode, unsigned int 
 		if (cocoaFlags & NSShiftKeyMask)		modifiers |= shiftKey;
 		UniCharCount maxStringLength = 4, actualStringLength;
 		UniChar unicodeString[4];
-		err = UCKeyTranslate( uchrData, (UInt16)keyCode, kUCKeyActionDisplay, modifiers, LMGetKbdType(), kUCKeyTranslateNoDeadKeysBit, &deadKeyState, maxStringLength, &actualStringLength, unicodeString );
+		UCKeyTranslate( uchrData, (UInt16)keyCode, kUCKeyActionDisplay, modifiers, LMGetKbdType(), kUCKeyTranslateNoDeadKeysBit, &deadKeyState, maxStringLength, &actualStringLength, unicodeString );
 		CFStringRef temp = CFStringCreateWithCharacters(kCFAllocatorDefault, unicodeString, 1);
 		resultString = CFStringCreateMutableCopy(kCFAllocatorDefault, 0,temp);
 		if(temp)
@@ -367,6 +375,7 @@ static NSMutableDictionary *SRSharedImageCache = nil;
 //	NSLog(@"created customImageRep: %@", customImageRep);
 	NSImage *returnImage = [[NSImage alloc] initWithSize:size];
 	[returnImage addRepresentation:customImageRep];
+	[customImageRep release]; //marius
 	[returnImage setScalesWhenResized:YES];
 	[SRSharedImageCache setObject:returnImage forKey:name];
 	
@@ -430,15 +439,17 @@ static NSMutableDictionary *SRSharedImageCache = nil;
 	[flip translateXBy:0.5 yBy:-0.5];
 	
 	[bp transformUsingAffineTransform:flip];
+	[flip release]; //marius
 	
 	NSShadow *sh = [[NSShadow alloc] init];
 	[sh setShadowColor:[[NSColor blackColor] colorWithAlphaComponent:0.45]];
 	[sh setShadowBlurRadius:1.0];
 	[sh setShadowOffset:NSMakeSize(0.0,-1.0)];
 	[sh set];
+	[sh release];
 	
 	[bp fill];
-	
+	[bp release]; //marius
 }
 
 + (NSValue *)_sizeSRRemoveShortcut {
@@ -469,6 +480,7 @@ static NSMutableDictionary *SRSharedImageCache = nil;
 	[cross lineToPoint:MakeRelativePoint(4,10)];
 		
 	[cross stroke];
+	[cross release]; //marius
 }
 + (void)_drawSRRemoveShortcut:(id)anNSCustomImageRep {
 	

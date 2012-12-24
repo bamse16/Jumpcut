@@ -489,14 +489,14 @@ static OSStatus SendEventToSystemEventsWithParameters(
 	AppleEvent			target;
 	AppleEvent			event;
 	AppleEvent			localReply;
-	AEDescList			results;
+	//AEDescList			results;
 
 	assert( (reply == NULL) || (reply->descriptorType == typeNull) );
 		
 	target = kAENull;
 	event = kAENull;
 	localReply = kAENull;
-    results = kAENull;
+    // results = kAENull; //marius
 	
 	// Create Apple event.
 	

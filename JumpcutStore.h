@@ -72,6 +72,7 @@
 // Add a clipping
 -(void) addClipping:(NSString *)clipping ofType:(NSString *)type;
 
+-(void) moveToTop:(NSString *)fullText;
 // Delete a clipping
 
 // Delete all list clippings

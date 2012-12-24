@@ -296,13 +296,13 @@ This is simply a list of all tab view items in order.
 {
 	int					itemCount = [tabView numberOfTabViewItems],
 	x;
-	NSTabViewItem*		theItem = [tabView tabViewItemAtIndex:0];
+		// NSTabViewItem*	theItem = [tabView tabViewItemAtIndex:0]; //marius
 	//NSMutableArray*	defaultItems = [NSMutableArray arrayWithObjects: [theItem identifier], NSToolbarSeparatorItemIdentifier, nil];
 	NSMutableArray*	defaultItems = [NSMutableArray array];
 	
 	for( x = 0; x < itemCount; x++ )
 	{
-		theItem = [tabView tabViewItemAtIndex:x];
+		NSTabViewItem* theItem = [tabView tabViewItemAtIndex:x];
 		
 		[defaultItems addObject: [theItem identifier]];
 	}
