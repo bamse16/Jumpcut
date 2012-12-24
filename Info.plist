@@ -29,6 +29,6 @@
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 	<key>SUFeedURL</key>
-	<string>http://jumpcut.sf.net/jumpcut.appcast.xml</string>
+	<string>http://sparkle.coralmagnetic.com/jumpcut.appcast.xml</string>
 </dict>
 </plist>
