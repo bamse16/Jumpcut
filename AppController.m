@@ -16,7 +16,7 @@
 
 #define _DISPLENGTH 40
 
-typedef unsigned NSWindowCollectionBehavior;
+typedef NSUInteger NSWindowCollectionBehavior;
 
 @interface NSWindow (NSWindowCollectionBehavior)
 - (void)setCollectionBehavior:(NSWindowCollectionBehavior)behavior;
