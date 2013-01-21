@@ -1,12 +1,9 @@
 #import "MASShortcut.h"
 
-NSString *const MASShortcutKeyCode = @"KeyCode";
-NSString *const MASShortcutModifierFlags = @"ModifierFlags";
+NSString *const kMASShortcutKeyCode = @"KeyCode";
+NSString *const kMASShortcutModifierFlags = @"ModifierFlags";
 
-@implementation MASShortcut {
-    NSUInteger _keyCode; // NSNotFound if empty
-    NSUInteger _modifierFlags; // 0 if empty
-}
+@implementation MASShortcut
 
 @synthesize modifierFlags = _modifierFlags;
 @synthesize keyCode = _keyCode;
@@ -15,17 +12,17 @@ NSString *const MASShortcutModifierFlags = @"ModifierFlags";
 
 - (void)encodeWithCoder:(NSCoder *)coder
 {
-    [coder encodeInteger:(self.keyCode != NSNotFound ? (NSInteger)self.keyCode : - 1) forKey:MASShortcutKeyCode];
-    [coder encodeInteger:(NSInteger)self.modifierFlags forKey:MASShortcutModifierFlags];
+    [coder encodeInteger:(self.keyCode != NSNotFound ? (NSInteger)self.keyCode : - 1) forKey:kMASShortcutKeyCode];
+    [coder encodeInteger:(NSInteger)self.modifierFlags forKey:kMASShortcutModifierFlags];
 }
 
 - (id)initWithCoder:(NSCoder *)decoder
 {
     self = [super init];
     if (self) {
-        NSInteger code = [decoder decodeIntegerForKey:MASShortcutKeyCode];
+        NSInteger code = [decoder decodeIntegerForKey:kMASShortcutKeyCode];
         self.keyCode = (code < 0 ? NSNotFound : (NSUInteger)code);
-        self.modifierFlags = [decoder decodeIntegerForKey:MASShortcutModifierFlags];
+        self.modifierFlags = [decoder decodeIntegerForKey:kMASShortcutModifierFlags];
     }
     return self;
 }
@@ -42,18 +39,23 @@ NSString *const MASShortcutModifierFlags = @"ModifierFlags";
 
 + (MASShortcut *)shortcutWithKeyCode:(NSUInteger)code modifierFlags:(NSUInteger)flags
 {
-    return [[self alloc] initWithKeyCode:code modifierFlags:flags];
+    return [[[self alloc] initWithKeyCode:code modifierFlags:flags] autorelease];
 }
 
 + (MASShortcut *)shortcutWithEvent:(NSEvent *)event
 {
-    return [[self alloc] initWithKeyCode:event.keyCode modifierFlags:event.modifierFlags];
+    return [[[self alloc] initWithKeyCode:event.keyCode modifierFlags:event.modifierFlags] autorelease];
 }
 
 + (MASShortcut *)shortcutWithData:(NSData *)data
 {
     id shortcut = (data ? [NSKeyedUnarchiver unarchiveObjectWithData:data] : nil);
     return shortcut;
+}
+
+- (void)dealloc
+{
+    [super dealloc];
 }
 
 #pragma mark - Shortcut accessors
@@ -317,8 +319,8 @@ BOOL MASShortcutAllowsAnyHotkeyWithOptionModifier = NO;
             CFNumberRef code = CFDictionaryGetValue(hotKeyInfo, kHISymbolicHotKeyCode);
             CFNumberRef flags = CFDictionaryGetValue(hotKeyInfo, kHISymbolicHotKeyModifiers);
 
-            if (([(__bridge NSNumber *)code unsignedIntegerValue] == self.keyCode) &&
-                ([(__bridge NSNumber *)flags unsignedIntegerValue] == self.carbonFlags)) {
+            if (([(NSNumber *)code unsignedIntegerValue] == self.keyCode) &&
+                ([(NSNumber *)flags unsignedIntegerValue] == self.carbonFlags)) {
 
                 if (outError) {
                     NSString *description = NSLocalizedString(@"This combination cannot be used used because it is already used by a system-wide "

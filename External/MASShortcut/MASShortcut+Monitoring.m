@@ -7,9 +7,14 @@ void UninstallEventHandler();
 
 #pragma mark -
 
-@interface MASShortcutHotKey : NSObject
+@interface MASShortcutHotKey : NSObject {
+    MASShortcut *_shortcut;
+    void (^_handler)();
+    EventHotKeyRef _carbonHotKey;
+    UInt32 _carbonHotKeyID;
+}
 
-@property (nonatomic, readonly) MASShortcut *shortcut;
+@property (nonatomic, readonly, retain) MASShortcut *shortcut;
 @property (nonatomic, readonly, copy) void (^handler)();
 @property (nonatomic, readonly) EventHotKeyRef carbonHotKey;
 @property (nonatomic, readonly) UInt32 carbonHotKeyID;
@@ -28,10 +33,11 @@ void UninstallEventHandler();
     NSString *monitor = [NSString stringWithFormat:@"%@", shortcut.description];
     if ([MASRegisteredHotKeys() objectForKey:monitor]) return nil;
 
-    MASShortcutHotKey *hotKey = [[MASShortcutHotKey alloc] initWithShortcut:shortcut handler:handler];
+    MASShortcutHotKey *hotKey = [[[MASShortcutHotKey alloc] initWithShortcut:shortcut handler:handler] autorelease];
     if (hotKey == nil) return nil;
 
     [MASRegisteredHotKeys() setObject:hotKey forKey:monitor];
+    
     return monitor;
 }
 
@@ -40,12 +46,12 @@ void UninstallEventHandler();
     if (monitor == nil) return;
     NSMutableDictionary *registeredHotKeys = MASRegisteredHotKeys();
     MASShortcutHotKey *hotKey = [registeredHotKeys objectForKey: monitor];
-    [registeredHotKeys removeObjectForKey:monitor];
     if (hotKey)
     {
         [hotKey uninstallExistingHotKey];
-        [hotKey release];
     }
+    [registeredHotKeys removeObjectForKey:monitor];
+
     if (registeredHotKeys.count == 0) {
         UninstallEventHandler();
     }
@@ -68,18 +74,22 @@ void UninstallEventHandler();
 {
     self = [super init];
     if (self) {
-        _shortcut = shortcut;
+        _shortcut = [shortcut retain];
         _handler = [handler copy];
 
-        if (!InstallHotkeyWithShortcut(shortcut, &_carbonHotKeyID, &_carbonHotKey))
+        if (!InstallHotkeyWithShortcut(shortcut, &_carbonHotKeyID, &_carbonHotKey)){
+            [self release];
             self = nil;
+        }
     }
     return self;
 }
 
 - (void)dealloc
 {
+    [_shortcut release];
     [self uninstallExistingHotKey];
+    [super dealloc];
 }
 
 - (void)uninstallExistingHotKey
@@ -99,7 +109,7 @@ NSMutableDictionary *MASRegisteredHotKeys()
     static NSMutableDictionary *shared = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        shared = [NSMutableDictionary dictionary];
+        shared = [[NSMutableDictionary dictionary] retain];
     });
     return shared;
 }

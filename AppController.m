@@ -9,9 +9,9 @@
 //  at <http://jumpcut.sourceforge.net/> for details.
 
 #import "AppController.h"
-#import "PTHotKey.h"
-#import "PTHotKeyCenter.h"
-#import "SRRecorderCell.h"
+//#import "PTHotKey.h"
+//#import "PTHotKeyCenter.h"
+//#import "SRRecorderCell.h"
 #import "CMMULoginItem.h"
 
 #define _DISPLENGTH 40
@@ -447,6 +447,7 @@ typedef NSUInteger NSWindowCollectionBehavior;
 
 - (IBAction)toggleMainHotKey:(id)sender
 {
+    /*
 	if (mainHotKey != nil)
 	{
 		[[PTHotKeyCenter sharedCenter] unregisterHotKey:mainHotKey];
@@ -460,6 +461,7 @@ typedef NSUInteger NSWindowCollectionBehavior;
 	[mainHotKey setTarget: self];
 	[mainHotKey setAction: @selector(hitMainHotKey:)];
 	[[PTHotKeyCenter sharedCenter] registerHotKey:mainHotKey];
+     */
 }
 
 -(IBAction)clearClippingList:(id)sender {
@@ -715,12 +717,12 @@ typedef NSUInteger NSWindowCollectionBehavior;
 
 - (void)applicationWillTerminate:(NSNotification *)notification
 {
-	if ( [[NSUserDefaults standardUserDefaults] integerForKey:@"savePreference"] >= 1 ) {
+	if ([[NSUserDefaults standardUserDefaults] integerForKey:@"savePreference"] >= 1) {
 		NSLog(@"Saving on exit");
         [self saveEngine];
     }
 	//Unregister our hot key (not required)
-	[[PTHotKeyCenter sharedCenter] unregisterHotKey: mainHotKey];
+//	[[PTHotKeyCenter sharedCenter] unregisterHotKey: mainHotKey];
 	[mainHotKey release];
 	mainHotKey = nil;
 	[self hideBezel];

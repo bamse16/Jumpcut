@@ -30,7 +30,10 @@ enum {
 	kMASShortcutGlyphSoutheastArrow = 0x2198,
 } MASShortcutGlyph;
 
-@interface MASShortcut : NSObject <NSCoding>
+@interface MASShortcut : NSObject <NSCoding> {
+    NSUInteger _keyCode; // NSNotFound if empty
+    NSUInteger _modifierFlags; // 0 if empty
+}
 
 @property (nonatomic) NSUInteger keyCode;
 @property (nonatomic) NSUInteger modifierFlags;
@@ -57,3 +60,9 @@ enum {
 + (BOOL)allowsAnyHotkeyWithOptionModifier;
 
 @end
+
+//import the other headers so we can include the framework in the usual fashion.
+#import "MASShortcut+Monitoring.h"
+#import "MASShortcut+UserDefaults.h"
+#import "MASShortcutView.h"
+#import "MASShortcutView+UserDefaults.h"
